@@ -14,12 +14,23 @@ class Metadata:
 def main():
     metadata = Metadata()
     args = parse_args(metadata)
+    _ = args
 
 
 def parse_args(program: Metadata) -> argparse.Namespace:
     parser = argparse.ArgumentParser(prog=program.name, description=program.description, epilog=program.epilogue)
-    parser.add_argument("src", help="path to copy")
-    parser.add_argument("dst", help="path to paste to")
+    # subparsers
+    subparsers = parser.add_subparsers(help="subcommand help")
+    ## copy
+    copy = subparsers.add_parser("copy", help="copy a file or directory")
+    copy.add_argument("PATH", help="path to copy")
+    ## cut
+    cut = subparsers.add_parser("cut", help="cut a file or directory")
+    cut.add_argument("PATH", help="path to copy")
+    ## paste
+    paste = subparsers.add_parser("paste", help="paste a copied file or directory")
+    paste.add_argument("-o", "--output", metavar="PATH", help="output path name")
+    # parse args
     args = parser.parse_args()
     return args
 

@@ -1,20 +1,22 @@
-"""module for manipulating a stack of directories"""
+"""module for manipulating a generic stack"""
 
 from pathlib import Path
+from typing import Any
 
 class Stack:
-    """a stack oject"""
+    """a generic stack"""
 
-    def __init__(self, path: Path):
-        create_dir_if_dne(path)
-        self.path = path
-        self.stack: list[Path] = []
+    def __init__(self):
+        self.stack: list[Any] = []
 
-    def push(self, path: Path):
-        pass
+    def push(self, thing: Any):
+        self.stack.append(thing)
     
-    def pop(self, path: Path):
-        pass
+    def pop(self) -> Any:
+        return self.stack.pop()
+
+    def peek(self) -> Any:
+        return self.stack[-1]
 
 def create_dir_if_dne(path: Path):
     path.mkdir(parents=True, exist_ok=True)
