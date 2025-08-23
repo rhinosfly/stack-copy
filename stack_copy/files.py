@@ -2,7 +2,7 @@
 
 
 import shutil
-from stack import Stack
+from stacking import Stack
 from pathlib import Path
 
 
@@ -17,6 +17,9 @@ def copy(stack: Stack, path: Path):
 
 
 def paste(stack: Stack, destination: Path):
+    # check if stack is empty
+    if len(stack.stack) < 1:
+        return
     # peek stack into src
     src: Path = stack.peek()
     # copy from src to dst
