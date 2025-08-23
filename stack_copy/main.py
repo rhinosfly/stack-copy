@@ -19,20 +19,14 @@ def main():
     stack = stacking.Stack()
     # parse args
     args = parse_args(metadata)
-    print(args)
     # execute funtion
-    try:
-        args.func
-    except AttributeError:
-        print("no function given")
-    else:
-        args.func(stack=stack, args=args)
+    args.func(stack=stack, args=args)
 
 
 def parse_args(program: Metadata) -> argparse.Namespace:
     parser = argparse.ArgumentParser(prog=program.name, description=program.description, epilog=program.epilogue)
     # subparsers
-    subparsers = parser.add_subparsers(title="subcommands", help="subcommand help")
+    subparsers = parser.add_subparsers(title="subcommands", help="subcommand help", required=True)
     ## copy
     copier = subparsers.add_parser("copy", help="copy a file or directory")
     copier.set_defaults(func=copy)
