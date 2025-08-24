@@ -4,4 +4,4 @@ version = "0.0.0"
 
 
 [project.scripts]
-vccas = "stack_copy.main:main"
+scp = "stack_copy.main:main"
