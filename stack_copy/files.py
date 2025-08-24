@@ -2,7 +2,7 @@
 
 
 import shutil
-from stacking import Stack
+from .stacking import Stack
 from pathlib import Path
 
 

@@ -3,8 +3,8 @@
 
 import argparse
 from dataclasses import dataclass
-import stacking
-import files
+from . import stacking
+from . import files
 from pathlib import Path
 
 @dataclass
