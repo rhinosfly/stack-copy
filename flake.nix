@@ -27,5 +27,9 @@
         type = "app";
         program = "${self.packages.${system}.default}/bin/${bin_name}";
       };
+
+      # Development shell with your program installed
+      devShells.${system}.default =
+        pkgs.mkShell { buildInputs = [ self.packages.${system}.default ]; };
     };
 }
