@@ -13,15 +13,18 @@ def copy(stack: Stack, path: Path):
     # clear stack
     stack.stack = []
     # push path to stack
-    stack.push(path)
+    stack.push(path.absolute())
 
 
-def paste(stack: Stack, destination: Path):
+def paste(stack: Stack, destination: Path|None):
     # check if stack is empty
     if len(stack.stack) < 1:
         return
     # peek stack into src
     src: Path = stack.peek()
+    # get dst
+    if destination is None:
+        destination = src.name()
     # copy from src to dst
     shutil.copy(src, destination)
 

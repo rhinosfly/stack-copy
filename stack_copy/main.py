@@ -5,6 +5,7 @@ import argparse
 from dataclasses import dataclass
 import stacking
 import files
+from pathlib import Path
 
 @dataclass
 class Metadata:
@@ -13,10 +14,15 @@ class Metadata:
     version = "0.0.0"
     epilogue = ""
 
+@dataclass
+class Config:
+    stack_location = Path(Path.home()/".local/share/scp/stack.json")
+
 def main():
     # init constants
     metadata = Metadata()
-    stack = stacking.Stack()
+    config = Config()
+    stack = stacking.Stack(config.stack_location)
     # parse args
     args = parse_args(metadata)
     # execute funtion
@@ -44,13 +50,19 @@ def parse_args(program: Metadata) -> argparse.Namespace:
     return args
 
 def copy(stack: stacking.Stack, args: argparse.Namespace):
-    files.copy(stack=stack, path=args.PATH)
+    stack.load()
+    files.copy(stack=stack, path=Path(args.PATH))
+    stack.dump()
 
 def cut(stack: stacking.Stack, args: argparse.Namespace):
-    files.cut(stack=stack, path=args.PATH)
+    stack.load()
+    files.cut(stack=stack, path=Path(args.PATH))
+    stack.dump()
 
 def paste(stack: stacking.Stack, args: argparse.Namespace):
-    files.paste(stack=stack, destination=args.output)
+    stack.load()
+    files.paste(stack=stack, destination=Path(args.output))
+    stack.dump()
 
 if __name__ == "__main__":
     main()
