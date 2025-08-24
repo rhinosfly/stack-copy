@@ -24,9 +24,9 @@ def paste(stack: Stack, destination: Path|None):
     src: Path = stack.peek()
     # get dst
     if destination is None:
-        destination = src.name()
+        destination = Path(src.name)
     # copy from src to dst
-    shutil.copy(src, destination)
+    shutil.copy(str(src), str(destination))
 
 def cut(stack: Stack, path: Path):
     print("cut is unimplemented")
