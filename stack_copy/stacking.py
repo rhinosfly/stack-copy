@@ -5,7 +5,9 @@ from typing import Any
 import json
 
 class Stack:
-    """a generic stack"""
+    """a generic stack
+
+    only in program memory until loaded or dumped"""
 
     def __init__(self, file: Path):
         self.stack: list[Any] = []

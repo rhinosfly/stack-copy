@@ -9,6 +9,7 @@ from pathlib import Path
 
 @dataclass
 class Metadata:
+    """configure program metadata"""
     name = "scp"
     description = "a cross platform python shell utility for gui-like copy-pasting using a temporary directory as a stack"
     version = "0.0.0"
@@ -16,12 +17,15 @@ class Metadata:
 
 @dataclass
 class Config:
+    """configure program"""
     stack_location = Path(Path.home()/".local/share/scp/stack.json")
 
 def main():
+    """main program"""
     # init constants
     metadata = Metadata()
     config = Config()
+    # init stack
     stack = stacking.Stack(config.stack_location)
     # parse args
     args = parse_args(metadata)
@@ -30,6 +34,7 @@ def main():
 
 
 def parse_args(program: Metadata) -> argparse.Namespace:
+    """parse cli arguments"""
     parser = argparse.ArgumentParser(prog=program.name, description=program.description, epilog=program.epilogue)
     # subparsers
     subparsers = parser.add_subparsers(title="subcommands", help="subcommand help", required=True)
@@ -50,16 +55,19 @@ def parse_args(program: Metadata) -> argparse.Namespace:
     return args
 
 def copy(stack: stacking.Stack, args: argparse.Namespace):
+    """wrapper for files.copy"""
     stack.load()
     files.copy(stack=stack, path=Path(args.PATH))
     stack.dump()
 
 def cut(stack: stacking.Stack, args: argparse.Namespace):
+    """wrapper for file.cut"""
     stack.load()
     files.cut(stack=stack, path=Path(args.PATH))
     stack.dump()
 
 def paste(stack: stacking.Stack, args: argparse.Namespace):
+    """wrapper for file.paste"""
     stack.load()
     if args.output:
         destination = Path(args.output)

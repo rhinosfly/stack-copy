@@ -7,6 +7,10 @@ from pathlib import Path
 
 
 def copy(stack: Stack, path: Path):
+    """copy a file to the impermanent stack
+
+    currently just copy its filename
+    """
     # TODO: add optional backup; currently just stores path
     # TODO: add optional larger stack, currently clears every time
     # TODO: check path validity
@@ -17,6 +21,7 @@ def copy(stack: Stack, path: Path):
 
 
 def paste(stack: Stack, destination: Path|None):
+    """read form impermanent stack and copy file over"""
     # check if stack is empty
     if len(stack.stack) < 1:
         return
