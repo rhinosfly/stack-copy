@@ -61,7 +61,11 @@ def cut(stack: stacking.Stack, args: argparse.Namespace):
 
 def paste(stack: stacking.Stack, args: argparse.Namespace):
     stack.load()
-    files.paste(stack=stack, destination=Path(args.output))
+    if args.output:
+        destination = Path(args.output)
+    else:
+        destination = None
+    files.paste(stack=stack, destination=destination)
     stack.dump()
 
 if __name__ == "__main__":
